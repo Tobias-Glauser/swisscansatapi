@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: Flight Data
+  profiles:
+    active: @activatedProperties@
+  cache:
+    type: none
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  #  h2:
+  #    console:
+  #      enabled: true
+  mvc:
+    servlet:
+      path: /api/v1
+
+server:
+  error:
+    include-message: always
