@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping(path = "flight")
 public class FlightController {
 
