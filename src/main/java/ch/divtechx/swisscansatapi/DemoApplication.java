@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"ch.divtechx.swisscansatapi"})
+//@ComponentScan(basePackages = {"ch.divtechx.swisscansatapi"})
 public class DemoApplication {
 
     public static void main(String[] args) {
@@ -14,6 +14,8 @@ public class DemoApplication {
                 -------------------------------------
                 |  API en cours de fonctionnement   |
                 -------------------------------------""");
+
+        System.out.println("test");
     }
 
 }
