@@ -1,39 +1,61 @@
 package ch.divtechx.swisscansatapi;
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
-    @Value("swisscansatapi.cors.allowedOrigins")
-    private List<String> allowedOrigins;
+
+    private final SwissCanSatProperties swissCanSatProperties;
+
+    @Bean
+    public UserDetailsService users() {
+        UserDetails admin = User.builder()
+                .username(swissCanSatProperties.getAuth().getUser())
+                .password(new BCryptPasswordEncoder().encode(swissCanSatProperties.getAuth().getPassword()))
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(admin);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        System.out.println("Allowed origins: " + allowedOrigins);
         http.csrf().disable();
-        http.authorizeHttpRequests().anyRequest().permitAll();
+        http.authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET).permitAll()
+                .anyRequest().hasRole("ADMIN");
+        http.httpBasic();
         http.cors().configurationSource(corsConfigurationSource());
         return http.build();
     }
 
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedOrigins(allowedOrigins);
-        configuration.setAllowedHeaders(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type"));
+        configuration.setAllowedOrigins(List.of(swissCanSatProperties.getCors().getAllowedOrigins()));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

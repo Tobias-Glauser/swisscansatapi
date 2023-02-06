@@ -3,7 +3,6 @@ package ch.divtechx.swisscansatapi.flightData;
 import ch.divtechx.swisscansatapi.flight.Flight;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface FlightDataService {
     void addNewFlightData(FlightData flightData);

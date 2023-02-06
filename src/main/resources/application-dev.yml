@@ -4,3 +4,11 @@ spring:
     username: root
     password:
     driverClassName: com.mysql.cj.jdbc.Driver
+
+swisscansatapi:
+  auth:
+    user: admin
+    password: admin
+  cors:
+    allowedOrigins:
+      - "*"
