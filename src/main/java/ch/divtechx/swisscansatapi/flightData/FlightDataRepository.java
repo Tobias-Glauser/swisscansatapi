@@ -13,11 +13,11 @@ public interface FlightDataRepository extends JpaRepository<FlightData, Long>, P
     @Query("SELECT flightData FROM FlightData AS flightData WHERE flightData.flight.id = ?1")
     Page<FlightData> findFlightDataByFlightId(PageRequest pageRequest, long flightId);
 
-    @Query("SELECT flightData FROM FlightData AS flightData WHERE flightData.timeStamp > ?1 AND flightData.flight.id = ?2")
-    Page<FlightData> findFlightDataByTimeStampIsAfterAndFlightId(PageRequest pageRequest, LocalDateTime timeStamp, long flightId);
+    @Query("SELECT flightData FROM FlightData AS flightData WHERE flightData.timestamp > ?1 AND flightData.flight.id = ?2")
+    Page<FlightData> findFlightDataByTimeStampIsAfterAndFlightId(PageRequest pageRequest, LocalDateTime timestamp, long flightId);
 
-    @Query("SELECT flightData FROM FlightData AS flightData WHERE flightData.timeStamp = ?1")
-    Optional<FlightData> findFlightDataByTimeStamp(LocalDateTime timeStamp);
+    @Query("SELECT flightData FROM FlightData AS flightData WHERE flightData.timestamp = ?1")
+    Optional<FlightData> findFlightDataByTimeStamp(LocalDateTime timestamp);
 
     void deleteAllByFlightId(long id);
 }

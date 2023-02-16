@@ -21,7 +21,7 @@ public class FlightDataServiceImpl implements FlightDataService {
 
     @Override
     public void addNewFlightData(FlightData flightData) {
-        Optional<FlightData> flightDataOptional = flightDataRepository.findFlightDataByTimeStamp(flightData.getTimeStamp());
+        Optional<FlightData> flightDataOptional = flightDataRepository.findFlightDataByTimeStamp(flightData.getTimestamp());
 
         if (flightDataOptional.isPresent()) {
             throw new IllegalStateException("This flight timeStamp already exist");
@@ -66,11 +66,11 @@ public class FlightDataServiceImpl implements FlightDataService {
             flightData.setFlight(flight);
         }
 
-        if (timestamp != null && !Objects.equals(flightData.getTimeStamp(), timestamp)) {
+        if (timestamp != null && !Objects.equals(flightData.getTimestamp(), timestamp)) {
             if (flightDataRepository.findFlightDataByTimeStamp(timestamp).isPresent()) {
                 throw new IllegalStateException("This flight timeStamp already exist");
             }
-            flightData.setTimeStamp(timestamp);
+            flightData.setTimestamp(timestamp);
         }
 
         if (altitude != null && !Objects.equals(flightData.getAltitude(), altitude)) {

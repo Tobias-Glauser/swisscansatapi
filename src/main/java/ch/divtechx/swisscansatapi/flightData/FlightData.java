@@ -26,7 +26,7 @@ public class FlightData {
     private Flight flight;
 
     @Column(name = "data_timestamp", nullable = false)
-    private LocalDateTime timeStamp;
+    private LocalDateTime timestamp;
 
     @Column(name = "altitude")
     private Double altitude;
