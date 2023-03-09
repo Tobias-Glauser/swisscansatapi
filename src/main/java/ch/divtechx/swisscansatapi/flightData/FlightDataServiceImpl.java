@@ -56,6 +56,11 @@ public class FlightDataServiceImpl implements FlightDataService {
     }
 
     @Override
+    public int getLowestAltitude(long flightId) {
+        return flightDataRepository.findLowestFlightDataAltitudeByFlightId(flightId);
+    }
+
+    @Override
     public void updateFlightData(Long flightDataId, Flight flight, LocalDateTime timestamp, Double altitude, Double co2Measure, Double tempMeasure, String gps, Double humidityMeasure, Double airPressureMeasure) {
         FlightData flightData = flightDataRepository.findById(flightDataId)
                 .orElseThrow(() -> new IllegalStateException(

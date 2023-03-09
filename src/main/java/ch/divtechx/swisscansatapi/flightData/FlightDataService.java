@@ -11,5 +11,7 @@ public interface FlightDataService {
 
     SearchResult<FlightData> getFlightData(FlightDataSearchQuery searchQuery);
 
+    int getLowestAltitude(long flightId);
+
     void updateFlightData(Long flightDataId, Flight flight, LocalDateTime timestamp, Double altitude, Double co2Measure, Double tempMeasure, String gps, Double humidityMeasure, Double airPressureMeasure);
 }

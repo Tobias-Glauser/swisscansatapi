@@ -20,4 +20,7 @@ public interface FlightDataRepository extends JpaRepository<FlightData, Long>, P
     Optional<FlightData> findFlightDataByTimeStamp(LocalDateTime timestamp);
 
     void deleteAllByFlightId(long id);
+
+    @Query("SELECT min(flightData.altitude) FROM FlightData AS flightData WHERE flightData.flight.id = ?1")
+    int findLowestFlightDataAltitudeByFlightId(long flightId);
 }

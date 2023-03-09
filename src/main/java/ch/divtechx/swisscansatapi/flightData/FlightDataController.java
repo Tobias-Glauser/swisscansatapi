@@ -20,6 +20,10 @@ public class FlightDataController {
     public SearchResult<FlightData> getFlightData(FlightDataSearchQuery searchQuery) {
         return flightDataService.getFlightData(searchQuery);
     }
+    @GetMapping(path = "lowest-altitude")
+    public int getLowestAltitude (long flightId) {
+        return flightDataService.getLowestAltitude(flightId);
+    }
 
     @PostMapping
     public void addNewFlight(@RequestBody FlightData flightData) {
