@@ -29,6 +29,16 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    public Flight getFlight(long flightId) {
+        Optional<Flight> flightOptional = flightRepository.findById(flightId);
+        if (flightOptional.isEmpty()) {
+            throw new IllegalStateException("This flight id does not exist");
+        }
+
+        return flightOptional.get();
+    }
+
+    @Override
     public void addNewFlight(Flight flight) {
         Optional<Flight> flightOptional = flightRepository.findAllByFLightName(flight.getFlightName());
 

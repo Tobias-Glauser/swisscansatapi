@@ -19,8 +19,13 @@ public class FlightController {
     }
 
     @GetMapping
-    public List<Flight> getFlight() {
+    public List<Flight> getFlights() {
         return flightService.getFlights();
+    }
+
+    @GetMapping(path = "{flightId}")
+    public Flight getFlight(@PathVariable("flightId") long flightId) {
+        return flightService.getFlight(flightId);
     }
 
     @PostMapping

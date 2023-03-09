@@ -9,6 +9,8 @@ import java.util.List;
 public interface FlightService {
     List<Flight> getFlights();
 
+    Flight getFlight(long flightId);
+
     void addNewFlight(Flight flight);
 
     void deleteFlight(Long flightId);
