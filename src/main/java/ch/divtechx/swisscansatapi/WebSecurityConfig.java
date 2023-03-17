@@ -45,7 +45,9 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET).permitAll()
+                .requestMatchers("api/v1/security/test").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "flight").permitAll()
+                .requestMatchers(HttpMethod.GET, "flightdata").permitAll()
                 .anyRequest().hasRole("ADMIN");
         http.httpBasic();
         http.cors().configurationSource(corsConfigurationSource());
