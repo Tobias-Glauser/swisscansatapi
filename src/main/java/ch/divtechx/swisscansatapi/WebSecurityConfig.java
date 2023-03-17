@@ -45,10 +45,11 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeHttpRequests()
-                .requestMatchers("api/v1/security/test").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "flight").permitAll()
-                .requestMatchers(HttpMethod.GET, "flightdata").permitAll()
-                .anyRequest().hasRole("ADMIN");
+//                .requestMatchers(HttpMethod.GET, "api/v1/flight").permitAll()
+//                .requestMatchers(HttpMethod.GET, "api/v1/flightdata").permitAll()
+                .requestMatchers(HttpMethod.GET,"api/v1/security/test").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET).permitAll()
+                .anyRequest().permitAll();
         http.httpBasic();
         http.cors().configurationSource(corsConfigurationSource());
         return http.build();
